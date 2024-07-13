@@ -40,6 +40,25 @@ app.post('/send-email', (req, res) => {
   });
 });
 
+app.post('/normal-send-email', (req, res) => {
+  // console.log(req.body);
+  const { email } = req.body;
+  const mailOptions1 = {
+    from: '24yashbari@gmail.com',
+    to: '24yashbari@gmail.com', // Change this to the recipient email address
+    subject: 'Contact Form Submission',
+    text: `Email: ${email}`,
+  };
+console.log('mailoptions1',mailOptions1);
+ transporter.sendMail(mailOptions1, (error, info) => {
+    if (error) {
+      console.error(error);
+      return res.status(500).send('Internal server error');
+    }
+    res.status(200).send('Email sent: ' + info.response);
+  });
+});
+
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
 });
